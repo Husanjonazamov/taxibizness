@@ -9,6 +9,8 @@ from states.state import Passenger
 
 # add import
 from asyncio import create_task
+from services import getCategory
+from utils.createCategory import createCategory
 
 
 async def passanger_phone_task(message: Message, state: FSMContext):
@@ -34,6 +36,7 @@ async def passanger_phone_task(message: Message, state: FSMContext):
     data = await state.get_data()
     count = data.get('count')
     location = data.get('location')
+    
 
     await message.answer(
         texts.confirmation_user(
@@ -51,7 +54,11 @@ async def passanger_phone_task(message: Message, state: FSMContext):
 @dp.message_handler(content_types=[ContentType.TEXT, ContentType.CONTACT], state=Passenger.phone)
 async def passanger_phone(message: Message, state: FSMContext):
     if message.text in [buttons.BACK]:
-        await message.answer(texts.PASSENGER_LOCATION_MESSAGE, reply_markup=buttons.LOCATION)
+        category = getCategory()
+        await message.answer(
+            texts.PASSENGER_LOCATION_MESSAGE,
+            reply_markup=createCategory(category)
+        )
         await Passenger.location.set()    
     else:
         await create_task(passanger_phone_task(message, state))

@@ -10,7 +10,7 @@ services:
     environment:
       - DEBUG=True
     ports:
-      - "7808:8000"
+      - "7821:8000"
     command: >
       bash -c "
         python3 manage.py migrate &&

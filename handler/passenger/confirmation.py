@@ -6,10 +6,12 @@ from aiogram.dispatcher import FSMContext
 from loader import dp, bot
 from utils import texts, buttons
 from states.state import Passenger
-from utils.env import CHANNEL_ID
+from utils.env import CHANNEL_ID, BOT_TOKEN
 
 # add import
 from asyncio import create_task
+import requests
+import json
 
 
 
@@ -29,16 +31,27 @@ async def passerger_confirmation_task(message: Message, state: FSMContext):
      
     user_id = message.from_user.id
     
-    await bot.send_message(
-        chat_id=CHANNEL_ID,
-        text=texts.confirmation_admin(
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+    caption = texts.confirmation_admin(
             username=username,
             count=count,
             location=location,
             phone_number=phone_number
-        ),
-        reply_markup=buttons.passerger_success_admin(user_id)
-    )
+        )
+
+
+    message_data = {
+        "chat_id": CHANNEL_ID,
+        "text": caption,
+        'parse_mode': 'HTML',
+        'protect_content': True,
+        "reply_markup": json.dumps(buttons.passerger_success_admin(user_id))
+    }
+    
+
+    response = requests.post(url, data=message_data)
+
     
     await state.update_data(
         username=username,

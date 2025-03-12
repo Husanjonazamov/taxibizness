@@ -111,17 +111,17 @@ PASSENGER_CONFIRMATION = ReplyKeyboardMarkup(
 
 
 def passerger_success_admin(user_id):
-    return InlineKeyboardMarkup(
-        inline_keyboard=[
+    inline_keyboard = {
+        "inline_keyboard": [
             [
-                InlineKeyboardButton(
-                    text="✅ Qabul qilish", 
-                    callback_data=f'success_{user_id}' 
-                )
+                {
+                    "text": "✅ Qabul qilish", 
+                    "callback_data": f'success_{user_id}'
+                }
             ]
         ]
-    )
-
+    }
+    return inline_keyboard
     
 
 def passerger_success_user(user_id, taxi_id, current_taxi_id):

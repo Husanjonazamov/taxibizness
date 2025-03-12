@@ -13,7 +13,6 @@ from asyncio import create_task
 
 
 
-
 async def passenger_task(message: Message, state: FSMContext):
     
     """

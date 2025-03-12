@@ -5,12 +5,13 @@ from aiogram.dispatcher import FSMContext
 # kode import
 from loader import dp, bot
 from utils import texts, buttons
+from utils.env import BOT_TOKEN
 from handler.passenger.accepted_status.cancel_funk import parse_text
 
 # add import 
 from asyncio import create_task
-
-
+import json
+import requests
 
 async def cancel_pesserger_task(callback: CallbackQuery, state: FSMContext):
     """
@@ -29,16 +30,27 @@ async def cancel_pesserger_task(callback: CallbackQuery, state: FSMContext):
     if callback.from_user.id == int(taxi_id):
         await callback.message.delete()
 
-        await bot.send_message(
-            chat_id=callback.message.chat.id,
-            text=texts.cancel_pesserger_admin(
+
+        url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
+
+        caption = texts.cancel_pesserger_admin(
                 username=username,
                 count=count,
                 location=location,
                 phone_number=phone_number
-            ),
-            reply_markup=buttons.passerger_success_admin(user_id)  
-        )
+            )
+
+
+        message_data = {
+            "chat_id": callback.message.chat.id,
+            "text": caption,
+            'parse_mode': 'HTML',
+            'protect_content': True,
+            "reply_markup": json.dumps(buttons.passerger_success_admin(user_id))
+        }
+        response = requests.post(url, data=message_data)
+        
+
     else:
         await callback.answer(texts.NOT_PESSERGER, show_alert=True)
 

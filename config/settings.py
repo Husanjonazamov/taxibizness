@@ -29,7 +29,7 @@ ALLOWED_HOSTS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://farbeshbot.azamovdev.uz'
+    'https://farbesh.aniverse.uz/'
 ]
 
 

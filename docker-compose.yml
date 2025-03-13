@@ -10,7 +10,11 @@ services:
     environment:
       - DEBUG=True
     ports:
+<<<<<<< HEAD
       - "7821:8000"
+=======
+      - "8079:8000"
+>>>>>>> cecb253 (Yangi .env.example va .gitignore fayllari qo'shild)
     command: >
       bash -c "
         python3 manage.py migrate &&

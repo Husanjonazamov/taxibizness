@@ -32,15 +32,16 @@ async def chat_handler_task(message: Message, state: FSMContext):
     mail_normalized = normalize_text(mail)
     group_name = message.chat.username if message.chat.type in ['group', 'supergroup'] else "Gurpa usernamesi topilmadi"
 
-
     restricted_words = [
-	'avto', 'авто', 'yuramiz', 'юрамиз',
-	'joy', 'жой', 'kam', 'кам', 'aktiv', 'актив',
-	'oylik', 'ойлик', 'lichka', 'личка',
-	'faberlik', 'фаберлик', 'faberlic', 'фаберлик',
-	'ishonchli', 'ишончли', 'assalomu alaykum', 'ассалому алайкум',
-	'licga', 'личга'
+        'avto', 'авто', 'yuramiz', 'юрамиз',
+        'joy', 'жой', 'kam', 'кам', 'aktiv', 'актив',
+        'oylik', 'ойлик', 'lichka', 'личка',
+        'faberlik', 'фаберлик', 'faberlic', 'фаберлик',
+        'ishonchli', 'ишончли', 'assalomu alaykum', 'ассалому алайкум',
+        'licga', 'личга',
+        'yuraman', 'olaman', 'olamiz', 'оламан', 'оламиз', 'юраман', 'юрамиз'
     ]
+
 
     for word in restricted_words:
         if word in mail_normalized:

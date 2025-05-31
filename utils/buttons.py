@@ -206,3 +206,18 @@ BOT_SILKA = InlineKeyboardMarkup(
         ]
     ]
 )
+
+
+
+def bot_button():
+    markup = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="🚕 Bot orqali buyurtma berish",
+                    url="https://t.me/testuchforbot" 
+                )
+            ]
+        ]
+    )
+    return markup

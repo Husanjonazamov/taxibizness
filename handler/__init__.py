@@ -1,6 +1,7 @@
 print('1. handler')
 
 from . import start
+from . import file_id
 from . import back
 from . import passenger
 from . import mail

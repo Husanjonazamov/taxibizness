@@ -3,6 +3,8 @@ from django.utils.translation import gettext_lazy as _
 
 
 
+
+
 class category(models.Model):
     category = models.CharField(max_length=100, verbose_name=_("Kategoryani kiriting"))
     
@@ -13,7 +15,6 @@ class category(models.Model):
         db_table = 'category'
         verbose_name = 'category'
         verbose_name_plural = 'category'
-        
         
         
 class Users(models.Model):

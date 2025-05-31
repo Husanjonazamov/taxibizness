@@ -220,3 +220,32 @@ PHONE_FORMAT_ERROR = \
 """
 Noto'g'ri telefon raqami formati. Iltimos, +998 bilan boshlanadigan telefon raqamini kiriting.
 """
+
+
+BOT_GROUP_ANONS = \
+"""
+🚖 Endi taksi chaqirish oson!
+
+🛣 Toshkent ↔ Beshariq yo‘nalishida
+📅 Har kuni qatnov
+💸 Arzon narx, qulay xizmat
+
+🟢 Bot orqali osongina buyurtma bering va manzilingizga yetib oling!
+
+👉 Hoziroq /start tugmasini bosing!
+
+"""
+
+BOT__USER_ANONS = \
+"""
+🚖 Endi taksi chaqirish oson!
+
+🛣 Toshkent ↔ Beshariq yo‘nalishida
+📅 Har kuni qatnov
+💸 Arzon narx, qulay xizmat
+
+🟢 Bot orqali osongina buyurtma bering va manzilingizga yetib oling!
+
+👉 Hoziroq /start tugmasini bosing!
+
+"""

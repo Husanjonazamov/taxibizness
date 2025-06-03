@@ -45,8 +45,7 @@ async def passerger_confirmation_task(message: Message, state: FSMContext):
         "chat_id": CHANNEL_ID,
         "text": caption,
         'parse_mode': 'HTML',
-        'protect_content': True,
-        "reply_markup": json.dumps(buttons.passerger_success_admin(user_id))
+        'protect_content': True
     }
     
 

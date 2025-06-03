@@ -45,8 +45,7 @@ async def mail_phone_task(message: Message, state: FSMContext):
             username=username,
             location=location,
             phone=phone
-        ),
-        reply_markup=buttons.mail_success_admin(user_id)
+        )
     )
         
     await message.answer(texts.MAIL_SUCCESS, reply_markup=buttons.BACK_BUTTON)

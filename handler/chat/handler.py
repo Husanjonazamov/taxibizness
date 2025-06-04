@@ -10,6 +10,7 @@ import re
 import unicodedata
 
 
+
 def contains_url(text):
     """
     Matnda URL borligini tekshiruvchi funksiya
@@ -28,6 +29,9 @@ async def chat_handler_task(message: Message, state: FSMContext):
     user_id = message.from_user.id
     username = message.from_user.username or message.from_user.first_name
     mail = message.text
+
+    if message.chat.id == CHANNEL_ID:
+        return
 
     mail_normalized = normalize_text(mail)
     group_name = message.chat.username if message.chat.type in ['group', 'supergroup'] else "Gurpa usernamesi topilmadi"
@@ -59,8 +63,7 @@ async def chat_handler_task(message: Message, state: FSMContext):
                 group_name=group_name,
                 username=username,
                 mail=mail,
-            ),
-            reply_markup=buttons.group_mail_success_admin(user_id)
+            )
         )
     except Exception as e:
         print(f"Error sending mail message: {e}")

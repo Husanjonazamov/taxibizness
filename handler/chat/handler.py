@@ -28,8 +28,7 @@ def normalize_text(text):
 async def chat_handler_task(message: Message, state: FSMContext):
     user_id = message.from_user.id
     username = message.from_user.username or message.from_user.first_name
-    mail = message.text
-
+    mail = message.text.replace(" ", "  ")
     if message.chat.id == CHANNEL_ID:
         return
 

@@ -142,11 +142,11 @@ def confirmation_user(**kwargs):
 def confirmation_admin(**kwargs):
     confirmation = ''
 
-    confirmation += f"<b>Yo'lovchi:</b>\n\n"
-    confirmation += f"<b>Username: @{kwargs['username']}</b>\n"
-    confirmation += f"<b>Yo'lovchi soni: {kwargs['count']}</b>\n"
-    confirmation += f"<b>Manzil: {kwargs['location']}</b>\n"
-    confirmation += f'<b>Telefon: <a href="tel:{kwargs["phone_number"]}">{kwargs["phone_number"]}</a></b>\n\n'
+    confirmation += f"<b>🚕 Botdan yangi buyurtma</b>\n\n"
+    confirmation += f"<b>📍 Manzil: {kwargs['location']}</b>\n\n"
+    confirmation += f"<b>👥 Yo'lovchi soni: {kwargs['count']}</b>\n\n"
+    confirmation += f"<b>👤 Yo'lovchi: @{kwargs['username']}</b>\n\n"
+    confirmation += f'<b>📞 Telefon: <a href="tel:{kwargs["phone_number"]}">{kwargs["phone_number"]}</a></b>\n\n'
 
     return confirmation
     
@@ -165,12 +165,12 @@ def send_driver_admin(**kwargs):
 def cancel_pesserger_admin(**kwargs):
     confirmation = ''
 
-    confirmation += f"<b>Yo'lovchi:</b>\n\n"
-    confirmation += f"<b>Username: {kwargs['username']}</b>\n"
-    confirmation += f"<b>Yo'lovchi soni: {kwargs['count']}</b>\n"
-    confirmation += f"<b>Manzil: {kwargs['location']}</b>\n"
-    confirmation += f'<b>Telefon: <a href="tel:{kwargs["phone_number"]}">{kwargs["phone_number"]}</a></b>\n\n'
-    
+    confirmation += f"<b>🚕 Botdan yangi buyurtma</b>\n\n"
+    confirmation += f"<b>📍 Manzil: {kwargs['location']}</b>\n\n"
+    confirmation += f"<b>👥 Yo'lovchi soni: {kwargs['count']}</b>\n\n"
+    confirmation += f"<b>👤 Yo'lovchi: @{kwargs['username']}</b>\n\n"
+    confirmation += f'<b>📞 Telefon: <a href="tel:{kwargs["phone_number"]}">{kwargs["phone_number"]}</a></b>\n\n'
+
     return confirmation
 
 

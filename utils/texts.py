@@ -177,10 +177,10 @@ def cancel_pesserger_admin(**kwargs):
 def mail_send_channel(**kwargs):
     mail_send = ''
     
-    mail_send += f"<b>Po'chta:</b>\n\n"
-    mail_send += f"<b>Username: @{kwargs['username']}</b>\n" 
-    mail_send += f"<b>Manzil: {kwargs['location']}</b>\n" 
-    mail_send += f'<b>Telefon: <a href="tel:{kwargs["phone"]}">{kwargs["phone"]}</a></b>\n' 
+    mail_send += f"<b>🚕 Botdan yangi buyurtma:</b>\n\n"
+    mail_send += f"<b>👤 Yo'lovchi: @{kwargs['username']}</b>\n\n" 
+    mail_send += f"<b>📍 Manzil: {kwargs['location']}</b>\n\n" 
+    mail_send += f'<b>📞 Telefon: <a href="tel:{kwargs["phone"]}">{kwargs["phone"]}</a></b>\n\n' 
     
     return mail_send
 
@@ -188,10 +188,10 @@ def mail_send_channel(**kwargs):
 def cancel_mail_send_channel(**kwargs):
     mail_send = ''
     
-    mail_send += f"<b>Po'chta:</b>\n\n"
-    mail_send += f"<b>Username: @{kwargs['username']}</b>\n" 
-    mail_send += f"<b>Manzil: {kwargs['location']}</b>\n" 
-    mail_send += f'<b>Telefon: <a href="tel:{kwargs["phone"]}">{kwargs["phone"]}</a></b>\n' 
+    mail_send += f"<b>🚕 Botdan yangi buyurtma:</b>\n\n"
+    mail_send += f"<b>👤 Yo'lovchi: @{kwargs['username']}</b>\n\n" 
+    mail_send += f"<b>📍 Manzil: {kwargs['location']}</b>\n\n" 
+    mail_send += f'<b>📞 Telefon: <a href="tel:{kwargs["phone"]}">{kwargs["phone"]}</a></b>\n\n' 
     
     return mail_send
 
@@ -199,9 +199,9 @@ def cancel_mail_send_channel(**kwargs):
 def text_to_send(**kwargs):
     group_mail_send = ''
     
-    group_mail_send += f"<b>Yangi xabar:</b>\n\n"
-    group_mail_send += f"<b>🏷️ Guruhning usernamesi: @{kwargs['group_name']}</b>\n\n" 
-    group_mail_send += f"<b>👤 Foydalanuvchi nomi: @{kwargs['username']}</b>\n\n" 
+    group_mail_send += f"<b>🚕 Botdan yangi buyurtma:</b>\n\n"
+    group_mail_send += f"<b>🏷️ Guruh: @{kwargs['group_name']}</b>\n\n" 
+    group_mail_send += f"<b>👤 Yo'lovchi: @{kwargs['username']}</b>\n\n" 
     group_mail_send += f"<b>📬 Ariza:  {kwargs[ 'mail']}</b>\n\n" 
     
     return group_mail_send

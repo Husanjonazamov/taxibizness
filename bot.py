@@ -4,7 +4,7 @@ from aiogram import executor
 # kode import 
 from loader import dp, bot
 from utils.env import ADMIN
-from services import send_daily_message, send_to_groups
+# from services import send_daily_message, send_to_groups
 import asyncio
 import handler
 
@@ -15,8 +15,8 @@ async def on_startup(dispatcher):
     """
     ADMIN_ID = ADMIN
 
-    asyncio.create_task(send_daily_message(bot))  
-    asyncio.create_task(send_to_groups(bot))  
+    # asyncio.create_task(send_daily_message(bot))  
+    # asyncio.create_task(send_to_groups(bot))  
     
     await bot.send_message(ADMIN_ID, 'bot ishga tushdi')
 

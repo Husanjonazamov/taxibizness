@@ -1,6 +1,5 @@
 from aiogram.types import Message
 from aiogram.dispatcher import FSMContext
-
 from loader import dp, bot
 from utils import texts
 from utils.env import CHANNEL_ID
@@ -8,6 +7,7 @@ from utils.env import CHANNEL_ID
 from asyncio import create_task
 import re
 import unicodedata
+import string
 
 
 def contains_url(text):
@@ -21,10 +21,16 @@ def contains_url(text):
 def normalize_text(text):
     """
     Matnni normal ko‘rinishga keltirish (kirill va lotinni oson taqqoslash uchun)
+    - Kirill/lotin harflarini normalize qiladi
+    - Diakritik belgilarni olib tashlaydi
+    - Kichik harflarga o'tkazadi
+    - Punktuatsiyani olib tashlaydi
     """
     text = unicodedata.normalize('NFKD', text)
     text = ''.join([c for c in text if not unicodedata.combining(c)])
-    return text.lower()
+    text = text.lower()
+    text = text.translate(str.maketrans('', '', string.punctuation))  # punktuatsiyani olib tashlash
+    return text
 
 
 allowed_phrases = [
@@ -72,13 +78,15 @@ async def chat_handler_task(message: Message, state: FSMContext):
     username = message.from_user.username or message.from_user.first_name
     mail = message.text.replace(" ", "  ")
 
+    # Guruhdan kelgan emas, shaxsiydan yozsa chiqarib yuborish
     if message.chat.id == CHANNEL_ID:
         return
 
     mail_normalized = normalize_text(mail)
     group_name = message.chat.username if message.chat.type in ['group', 'supergroup'] else "Gurpa usernamesi topilmadi"
 
-    if not any(phrase in mail_normalized for phrase in allowed_phrases):
+    # Faqat to‘liq ibora qatnashganmi, substring emas
+    if not any(re.search(rf'\b{re.escape(phrase)}\b', mail_normalized) for phrase in allowed_phrases):
         print("✅ Taqiqlangan emas, lekin ruxsat berilgan ibora ham yo‘q.")
         return
 

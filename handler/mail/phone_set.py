@@ -7,8 +7,6 @@ from loader import dp, bot
 from utils import buttons, texts
 from utils.env import CHANNEL_ID
 from states.state import Mail
-from utils.createCategory import createCategory
-from services import getCategory
 
 
 # add import
@@ -56,10 +54,9 @@ async def mail_phone_task(message: Message, state: FSMContext):
 @dp.message_handler(content_types=[ContentType.TEXT, ContentType.CONTACT], state=Mail.phone)
 async def mail_phone(message: Message, state: FSMContext):
     if message.text in [buttons.BACK]:
-        category = getCategory()
         await message.answer(
                 texts.MAIL_LOCATION,
-                reply_markup=createCategory(category)
+                reply_markup=buttons.create_static_category_keyboard()
             )
         await Mail.location.set()
     else:

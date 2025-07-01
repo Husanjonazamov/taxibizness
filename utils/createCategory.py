@@ -2,6 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from utils.buttons import BACK
 
 
+
 def createCategory(categories):
     keyboard = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)  
     
@@ -21,3 +22,4 @@ def createCategory(categories):
 def chunks(categories, chunk_size):
     for i in range(0, len(categories), chunk_size):
         yield categories[i:i + chunk_size]
+

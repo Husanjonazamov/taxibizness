@@ -6,8 +6,6 @@ from aiogram.dispatcher import FSMContext
 from loader import dp
 from utils import buttons, texts
 from states.state import Mail
-from services import getCategory
-from utils.createCategory import createCategory
 
 # add import
 from asyncio import create_task
@@ -21,11 +19,10 @@ async def mail_handler_task(message: Message, state: FSMContext):
     Foydalanuvchilar pochta sini yuboradigan funksiya
     """
     
-    category = getCategory()
     
     await message.answer(
             texts.MAIL_LOCATION,
-            reply_markup=createCategory(category)
+            reply_markup=buttons.create_static_category_keyboard()
         )
     await Mail.location.set()
     

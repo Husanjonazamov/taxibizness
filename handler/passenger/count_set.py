@@ -6,8 +6,6 @@ from aiogram.dispatcher import FSMContext
 from loader import dp
 from utils import texts, buttons
 from states.state import Passenger
-from services import getCategory
-from utils.createCategory import createCategory
 
 # add import
 from asyncio import create_task
@@ -20,7 +18,6 @@ async def passerger_count_task(message: Message, state: FSMContext):
     """
     Yo'lovchilar sonini olivchi funksiya
     """
-    category = getCategory()
 
     count = message.text
 
@@ -30,7 +27,7 @@ async def passerger_count_task(message: Message, state: FSMContext):
     
     await message.answer(
             texts.PASSENGER_LOCATION_MESSAGE,
-            reply_markup=createCategory(category)
+            reply_markup=buttons.create_static_category_keyboard()
         )
     await Passenger.location.set()    
 

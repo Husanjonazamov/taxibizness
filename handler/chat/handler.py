@@ -1,13 +1,13 @@
 from aiogram.types import Message
 from aiogram.dispatcher import FSMContext
+
 from loader import dp, bot
-from utils import texts
+from utils import texts, buttons
 from utils.env import CHANNEL_ID
 
 from asyncio import create_task
 import re
 import unicodedata
-import string
 
 
 def contains_url(text):
@@ -19,79 +19,44 @@ def contains_url(text):
 
 
 def normalize_text(text):
-    """
-    Matnni normal ko‘rinishga keltirish (kirill va lotinni oson taqqoslash uchun)
-    - Kirill/lotin harflarini normalize qiladi
-    - Diakritik belgilarni olib tashlaydi
-    - Kichik harflarga o'tkazadi
-    - Punktuatsiyani olib tashlaydi
-    """
     text = unicodedata.normalize('NFKD', text)
     text = ''.join([c for c in text if not unicodedata.combining(c)])
-    text = text.lower()
-    text = text.translate(str.maketrans('', '', string.punctuation))  # punktuatsiyani olib tashlash
-    return text
+    return text.lower()
 
-
-allowed_phrases = [
-    "ketishim kerak", "кетишим керак",
-    "pochta bor", "почта бор",
-    "taksi kerak", "такси керак",
-    "yana taksi kerak", "яна такси керак",
-    "olib ketish kerak", "олиб кетиш керак",
-    "chiqdim", "чиқдим",
-    "manzildan chiqdim", "манзилдан чиқдим",
-    "manzilga yetib keling", "манзилга етиб келинг",
-    "tayyorman", "тайёрман",
-    "tayyor turibman", "тайёр турибман",
-    "manzilni ayting", "манзилни айтинг",
-    "qayerga borasiz", "қаерга борасиз",
-    "taksi bormi", "такси борми",
-    "boramiz", "борамиз",
-    "kelamiz", "келамиз",
-    "birga chiqamiz", "бирга чиқамиз",
-    "olib ketasizmi", "олиб кетасизми",
-    "chiqib turibman", "чиқиб турибман",
-    "qayerdansiz", "қаердансиз",
-    "jo‘naymiz", "жўнаймиз",
-    "yo‘lga chiqdim", "йўлга чиқдим",
-    "ketyapman", "кетяпман",
-    "tezro keling", "тезро келинг",
-    "taksi yuboring", "такси юбўринг",
-    "qani taksi", "қани такси",
-    "kutyapman", "кутяпман",
-    "yo‘ldaman", "йўлдаман",
-    "borishim kerak", "боришим керак",
-    "manzilga boraman", "манзилга бораман",
-    "qayerda siz", "қаерда сиз",
-    "manzildaman", "манзилдаман",
-    "kuting", "кутинг",
-    "pochta tayyor", "почта тайёр",
-    "ketdik", "кетдик",
-    "boraylik", "борайлик",
-    "ketaylik", "кетаайлик"
-]
 
 
 async def chat_handler_task(message: Message, state: FSMContext):
     user_id = message.from_user.id
     username = message.from_user.username or message.from_user.first_name
-    mail = message.text.replace(" ", "  ")
-
-    # Guruhdan kelgan emas, shaxsiydan yozsa chiqarib yuborish
-    if message.chat.id == CHANNEL_ID:
-        return
+    mail = message.text
 
     mail_normalized = normalize_text(mail)
     group_name = message.chat.username if message.chat.type in ['group', 'supergroup'] else "Gurpa usernamesi topilmadi"
 
-    # Faqat to‘liq ibora qatnashganmi, substring emas
-    if not any(re.search(rf'\b{re.escape(phrase)}\b', mail_normalized) for phrase in allowed_phrases):
-        print("✅ Taqiqlangan emas, lekin ruxsat berilgan ibora ham yo‘q.")
-        return
+
+    restricted_words = [
+        'avto', 'авто', 'avtomobil', 'автомобиль', 'mashina', 'машина', 'car',
+        'yuramiz', 'юрамиз', 'joy', 'жой', 'kam', 'кам', 'aktiv', 'актив',
+        'oylik', 'ойлик', 'lichka', 'личка', 'licga', 'личга',
+        'faberlik', 'фаберлик', 'faberlic',
+        'ishonchli', 'ишончли', 'assalomu alaykum', 'ассалому алайкум',
+        
+        # Mashina modellari
+        'cobalt', 'cobolt', 'jentra', 'gentra', 'malibu', 'nexia', 'nexia 3', 'spark',
+        'tico', 'damas', 'matiz', 'captiva', 'tracker', 'equinox', 'onix', 'tahoe',
+        'lacetti', 'orlando', 'ravon', 'chevrolet', 'gm', 'daewoo', 'buick', 'hyundai',
+        'kia', 'toyota', 'mazda', 'lexus', 'bmw', 'mers', 'mercedes', 'honda', 'rav4',
+        'elantra', 'sonata', 'accent', 'prado', 'camry', 'granta', 'lada', 'vesta'
+    ]
+
+
+    for word in restricted_words:
+        if word in mail_normalized:
+            print(f"Xabar ichida taqiqlangan so‘z bor: {word}")
+            return
 
     if contains_url(mail_normalized):
-        print("🚫 URL aniqlandi, yuborilmaydi.")
+        print("Xabar ichida URL bor.")
         return
 
     try:
@@ -101,11 +66,12 @@ async def chat_handler_task(message: Message, state: FSMContext):
                 group_name=group_name,
                 username=username,
                 mail=mail,
-            )
+            ),
+            reply_markup=buttons.group_mail_success_admin(user_id)
         )
-        print("✅ Xabar kanalga yuborildi.")
     except Exception as e:
-        print(f"❌ Xatolik: {e}")
+        print(f"Error sending mail message: {e}")
+
 
 
 @dp.message_handler(content_types=['text'], state='*')

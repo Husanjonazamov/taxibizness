@@ -38,16 +38,25 @@ async def chat_handler_task(message: Message, state: FSMContext):
         'avto', 'авто', 'avtomobil', 'автомобиль', 'mashina', 'машина', 'car',
         'yuramiz', 'юрамиз', 'joy', 'жой', 'kam', 'кам', 'aktiv', 'актив',
         'oylik', 'ойлик', 'lichka', 'личка', 'licga', 'личга',
-        'faberlik', 'фаберлик', 'faberlic',
-        'ishonchli', 'ишончли', 'assalomu alaykum', 'ассалому алайкум',
-        
+        'faberlik', 'фаберлик', 'faberlic', 'ishonchli', 'ишончли',
+        'assalomu alaykum', 'ассалому алайкум', 'места буш тел', 'юраман',
+        'joymiz qoldi', 'жоймиз қолди', 'toshkent shahar ichiga', 'zarur pochta olamiz',
+        '❄️❄️❄️❄️❄️❄️',  # Emoji pattern (yaxshi filtrlanishi uchun qoldirildi)
+
         # Mashina modellari
         'cobalt', 'cobolt', 'jentra', 'gentra', 'malibu', 'nexia', 'nexia 3', 'spark',
         'tico', 'damas', 'matiz', 'captiva', 'tracker', 'equinox', 'onix', 'tahoe',
         'lacetti', 'orlando', 'ravon', 'chevrolet', 'gm', 'daewoo', 'buick', 'hyundai',
         'kia', 'toyota', 'mazda', 'lexus', 'bmw', 'mers', 'mercedes', 'honda', 'rav4',
-        'elantra', 'sonata', 'accent', 'prado', 'camry', 'granta', 'lada', 'vesta'
+        'elantra', 'sonata', 'accent', 'prado', 'camry', 'granta', 'lada', 'vesta',
+
+        # Yangi qo‘shilganlar
+        'аеллар',           # Kirillda yozilgan "ayollar"
+        'багаж',            # "bagaj"
+        '1та одам почта оламиз',
+        'всем привет'       # Ruscha "salom hammaga"
     ]
+
 
 
     for word in restricted_words:

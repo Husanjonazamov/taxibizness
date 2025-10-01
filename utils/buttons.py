@@ -11,8 +11,8 @@ MAIL = "📬 Po'chta Yuborish"
 
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-TOSHKENTDAN_BESHARIQGA = "Toshkentdan Beshariqga"
-BESHARIQDAN_TOSHKENTGA = "Beshariqdan Toshkentga"
+TOSHKENTDAN_BESHARIQGA = "Farg'onadan Beshariqga"
+BESHARIQDAN_TOSHKENTGA = "Beshariqdan Farg'onaga"
 BACK = "⬅️ Orqaga"
 
 def create_static_category_keyboard():
